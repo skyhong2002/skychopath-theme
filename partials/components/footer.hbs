@@ -15,16 +15,7 @@
             {{/unless}}
         {{/if}}
 
-        <div class="gh-social-links">
-            {{#social_accounts @site}}
-                <a href="{{href}}" target="_blank" rel="noopener" aria-label="{{name}}">
-                    {{#> (concat "icons/" type)}}
-                        {{!-- Fallback rendered when no per-platform icon partial exists --}}
-                        <span>{{name}}</span>
-                    {{/undefined}}
-                </a>
-            {{/social_accounts}}
-        </div>
+        {{> "skychopath/social-links"}}
 
         <div class="gh-footer-bar">
             <span class="gh-footer-logo is-title">

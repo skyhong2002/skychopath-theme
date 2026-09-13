@@ -17,6 +17,7 @@ GitHub 原有的 2025 年個人修改歷史已合併至目前版本；整合保�
 | 個人 CSS／JavaScript | `assets/custom/skyhong.css`、`assets/custom/skyhong.js` |
 | 首頁排版與側欄 | `partials/skychopath/home.hbs` |
 | 頁尾連結 | `partials/skychopath/footer-links.hbs` |
+| 頁尾社群圖示 | `partials/skychopath/social-links.hbs`（不顯示 X／Facebook；後台帳號資料保留） |
 | 網址路由／轉址 | Ghost 後台上傳；實際檔案位於主題 repo 外的 `../ghost-docker/content/settings/routes.yaml` 與 `../ghost-docker/content/data/redirects.json` |
 
 自訂樣式在官方 CSS 後載入，自訂 JavaScript 為獨立 defer 腳本。主要接入點是 `home.hbs`、`default.hbs` 和 `partials/components/footer.hbs`。優先把個人修改放進 `partials/skychopath/` 與 `assets/custom/`，可減少未來合併官方更新的衝突。

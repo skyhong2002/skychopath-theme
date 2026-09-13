@@ -4,6 +4,10 @@
     height: 100%;
 }
 
+.skychopath-social-links:empty {
+    display: none;
+}
+
 .skychopath-home {
     max-width: 720px;
     margin: 0 auto;
