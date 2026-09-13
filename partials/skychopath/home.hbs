@@ -6,6 +6,9 @@
                     {{#page}}
                         <h1 class="is-title skychopath-home-title">{{title}}</h1>
                         {{content}}
+                    {{else}}
+                        <h1 class="is-title skychopath-home-title">{{@site.title}}</h1>
+                        <p>首頁內容暫時無法顯示，請稍後再試，或使用上方導覽瀏覽其他頁面。</p>
                     {{/page}}
                 </article>
             </div>

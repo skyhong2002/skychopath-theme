@@ -2,20 +2,18 @@
     "name": "skychopath-theme",
     "description": "Sky Hong’s personal Ghost theme, based on Source",
     "demo": "https://skyhong.tw/",
-    "version": "1.7.4-skychopath.1",
+    "version": "1.7.4-skychopath.2",
     "engines": {
         "ghost": ">=6.63.0",
-        "node": "^22.22.3 || ^24.15.0"
+        "bun": ">=1.4.2"
     },
     "license": "MIT",
     "scripts": {
-        "dev": "gulp",
-        "zip": "gulp zip",
-        "test": "gscan .",
-        "test:ci": "gscan --verbose .",
-        "pretest": "gulp build",
-        "build": "gulp build",
-        "pretest:ci": "gulp build"
+        "dev": "bun --bun run gulp",
+        "zip": "bun --bun run gulp zip",
+        "test": "bun run build && bun --bun run gscan .",
+        "test:ci": "bun run build && bun --bun run gscan --verbose .",
+        "build": "bun --bun run gulp build"
     },
     "author": {
         "name": "Sky Hong",
@@ -201,7 +199,7 @@
             }
         }
     },
-    "packageManager": "npm@11.12.1",
+    "packageManager": "bun@1.4.2",
     "skychopath": {
         "upstream": "https://github.com/TryGhost/Source",
         "upstreamTag": "v1.7.4"

@@ -2,7 +2,7 @@
 
 這裡就是 skyhong.tw 使用的主題，也是獨立 Git repo。Ghost 直接將此資料夾掛載為 `/var/lib/ghost/content/themes/skychopath-theme`，沒有第二份日常部署副本。
 
-目前以官方 Source **v1.7.4** 為基底，個人版本 **1.7.4-skychopath.1**。官方歷史與個人修改的提交均保留。個人 GitHub repo 是 [skyhong2002/skychopath-theme](https://github.com/skyhong2002/skychopath-theme)，已設定為 `origin`，本機 `main` 追蹤 `origin/main`；`source-upstream` 僅供取得官方更新，已停用推送。
+目前以官方 Source **v1.7.4** 為基底，個人版本 **1.7.4-skychopath.2**。官方歷史與個人修改的提交均保留。個人 GitHub repo 是 [skyhong2002/skychopath-theme](https://github.com/skyhong2002/skychopath-theme)，已設定為 `origin`，本機 `main` 追蹤 `origin/main`；`source-upstream` 僅供取得官方更新，已停用推送。
 
 GitHub 原有的 2025 年個人修改歷史已合併至目前版本；整合保留本機 Source 1.7.4 與 Ghost Page 首頁架構。提交後以 `git push origin main` 同步至 GitHub（伺服器需具備推送認證）。從 GitHub 取得更新時先執行 `git fetch origin` 並檢查差異；合併會直接影響線上主題，仍須遵循下方建置與重載步驟。
 
@@ -26,20 +26,24 @@ GitHub 原有的 2025 年個人修改歷史已合併至目前版本；整合保�
 ```bash
 cd /var/www/skyhong-blog/theme
 # 首次安裝或 lockfile 改變時
-npm ci
+bun install --frozen-lockfile
 # 修改後建置並執行 Ghost 主題檢查
-npm test
+bun run test
 git add .
 git commit -m 'Describe the theme change'
 # 讓 Ghost 重新載入模板
 docker restart ghost-docker-7fw0la-ghost-1
 ```
 
-需要 Node `^22.22.3` 或 `^24.15.0`。`npm run dev` 可監看並建置檔案，不會啟動另一台 Ghost。
+主題工具統一使用 **[Bun 1.4.2](https://bun.com/docs/installation)**，版本記錄在 `package.json` 的 `packageManager`，CI 也讀取同一設定。使用 `bun.lock` 鎖定依賴；新增或更新依賴後提交 lockfile。Gulp 與 GScan 均由 Bun 執行，Ghost CMS 本體使用官方 Docker 映像內的 Node.js。
 
-這是線上主題：儲存個人 CSS／JS 後，重新整理即可讀取；瀏覽器快取可能需要強制重新整理。修改 `assets/css/` 或 `assets/js/` 後先跑 `npm run build`；修改模板或主題設定後重啟 Ghost。Git 切換分支、合併或還原，也會改變這份線上檔案。`npm run zip` 只用於額外匯出，不是本站部署步驟。
+請使用 `bun run test` 執行「建置＋Ghost 主題檢查」；`bun test` 是 Bun 內建測試器，並非本專案的檢查指令。`bun run dev` 可監看並建置檔案，不會啟動另一台 Ghost。
+
+這是線上主題：儲存個人 CSS／JS 後，重新整理即可讀取；瀏覽器快取可能需要強制重新整理。修改 `assets/css/` 或 `assets/js/` 後先跑 `bun run build`；修改模板或主題設定後重啟 Ghost。Git 切換分支、合併或還原，也會改變這份線上檔案。`bun run zip` 只用於額外匯出，不是本站部署步驟。
 
 Ghost 以 UID/GID `1000:1000` 執行，主題掛載為唯讀；主機上的 repo 仍可正常編輯。請在這裡改主題，避免透過 Ghost 後台上傳 ZIP 覆寫這個掛載。Compose 設定在 repo 外的 `../ghost-docker/`，更新 Ghost 映像時保留掛載與 user 設定。
+
+首頁透過路由載入已發布的 `home` Page。若模板收到的資料沒有 Page，會顯示網站名稱與暫時無法顯示的提示；正文仍只在 Ghost 後台維護。若 Ghost 因路由錯誤直接回傳錯誤頁，需修正路由／發布狀態，模板提示無法攔截該情況。
 
 ## 更新官方 Source
 
@@ -50,7 +54,7 @@ git fetch source-upstream tag vX.Y.Z
 git merge vX.Y.Z
 ```
 
-有衝突時處理上述接入點，保留個人主題名稱、作者、custom 設定與 npm 建置方式；不繼承官方發行工具。更新 `package.json` 的個人版本及 `skychopath.upstreamTag`，依賴變動時同步更新 lockfile。執行 `npm test`、提交並重啟 Ghost，檢查首頁、文章與受影響頁面。未完成的合併可用 `git merge --abort` 取消。
+有衝突時處理上述接入點，保留個人主題名稱、作者、custom 設定與 Bun 建置方式；不繼承官方發行工具。更新 `package.json` 的個人版本及 `skychopath.upstreamTag`，依賴變動時同步更新 lockfile。執行 `bun run test`、提交並重啟 Ghost，檢查首頁、文章與受影響頁面。未完成的合併可用 `git merge --abort` 取消。
 
 由於這份工作目錄就是線上檔案，大幅升級若需要先測試，可另外使用暫時的 worktree／測試 Ghost；日常不需要維護第二份主題。
 

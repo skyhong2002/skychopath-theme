@@ -1,5 +1,6 @@
 const {series, watch, src, dest, parallel} = require('gulp');
 const pump = require('pump');
+const {readdirSync} = require('node:fs');
 
 // gulp plugins and utils
 const livereload = require('gulp-livereload');
@@ -51,11 +52,11 @@ function css(done) {
 
 function js(done) {
     pump([
-        src([
-            // pull in lib files first so our own code can depend on it
-            'assets/js/lib/*.js',
-            'assets/js/*.js'
-        ], {sourcemaps: true}),
+        // Keep library-first ordering deterministic across runtimes/filesystems.
+        src(['assets/js/lib', 'assets/js'].flatMap(directory =>
+            readdirSync(directory).filter(file => file.endsWith('.js')).sort()
+                .map(file => `${directory}/${file}`)
+        ), {sourcemaps: true}),
         concat('source.js'),
         uglify(),
         dest('assets/built/', {sourcemaps: '.'}),
@@ -73,7 +74,7 @@ function zipper(done) {
             '!dist', '!dist/**',
             '!yarn-error.log',
             '!yarn.lock',
-            '!package-lock.json',
+            '!bun.lock',
             '!gulpfile.js',
             '!README.md',
             '!AGENTS.md',
