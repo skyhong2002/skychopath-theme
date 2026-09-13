@@ -2,8 +2,7 @@ const {series, watch, src, dest, parallel} = require('gulp');
 const pump = require('pump');
 const path = require('path');
 const releaseUtils = require('@tryghost/release-utils');
-const inquirer = require('inquirer');
-const {mergeLocales} = require('@tryghost/theme-translations/build');
+const inquirer = require('inquirer').default;
 
 // gulp plugins and utils
 const livereload = require('gulp-livereload');
@@ -11,7 +10,7 @@ const postcss = require('gulp-postcss');
 const zip = require('gulp-zip').default;
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
-const beeper = require('beeper');
+const beeper = require('beeper').default;
 const fs = require('fs');
 
 // postcss plugins
@@ -79,11 +78,9 @@ function zipper(done) {
             '**',
             '!node_modules', '!node_modules/**',
             '!dist', '!dist/**',
-            '!pnpm-debug.log',
-            '!pnpm-lock.yaml',
-            '!pnpm-workspace.yaml',
-            '!AGENTS.md',
-            '!CLAUDE.md',
+            '!yarn-error.log',
+            '!yarn.lock',
+            '!package-lock.json',
             '!gulpfile.js'
         ]),
         zip(filename),
@@ -94,16 +91,15 @@ function zipper(done) {
 const cssWatcher = () => watch('assets/css/**', css);
 const jsWatcher = () => watch('assets/js/**', js);
 const hbsWatcher = () => watch(['*.hbs', 'partials/**/*.hbs'], hbs);
-const localesWatcher = () => watch('./locales-local/**/*.json', mergeLocales());
-const watcher = parallel(cssWatcher, jsWatcher, hbsWatcher, localesWatcher);
-const build = series(css, js, mergeLocales());
+const watcher = parallel(cssWatcher, jsWatcher, hbsWatcher);
+const build = series(css, js);
 
 exports.build = build;
 exports.zip = series(build, zipper);
 exports.default = series(build, serve, watcher);
 
 exports.release = async () => {
-    // @NOTE: https://pnpm.io/cli/version
+    // @NOTE: https://yarnpkg.com/lang/en/docs/cli/version/
     // require(./package.json) can run into caching issues, this re-reads from file everytime on release
     let packageJSON = JSON.parse(fs.readFileSync('./package.json'));
     const newVersion = packageJSON.version;
@@ -123,12 +119,11 @@ exports.release = async () => {
     }
 
     try {
-        const prompt = inquirer.createPromptModule();
-        const result = await prompt([{
+        const result = await inquirer.prompt([{
             type: 'input',
             name: 'compatibleWithGhost',
             message: 'Which version of Ghost is it compatible with?',
-            default: '5.67.0'
+            default: '5.0.0'
         }]);
 
         const compatibleWithGhost = result.compatibleWithGhost;

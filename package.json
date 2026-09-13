@@ -4,23 +4,22 @@
     "demo": "https://source.ghost.io",
     "version": "1.7.4",
     "engines": {
-        "ghost": ">=5.0.0",
-        "node": ">=22.12.0"
+        "ghost": ">=6.63.0",
+        "node": "^22.22.3 || ^24.15.0"
     },
     "license": "MIT",
     "scripts": {
         "dev": "gulp",
         "zip": "gulp zip",
-        "build": "gulp build",
         "test": "gscan .",
         "test:ci": "gscan --fatal --verbose .",
-        "pretest": "pnpm zip",
-        "pretest:ci": "pnpm zip",
-        "preship": "pnpm test",
-        "ship": "STATUS=$(git status --porcelain); echo $STATUS; if [ -z \"$STATUS\" ]; then git push --follow-tags; else echo \"Uncommitted changes found.\" && exit 1; fi",
-        "postship": "git fetch && gulp release"
+        "pretest": "gulp build",
+        "preship": "npm test",
+        "ship": "STATUS=$(git status --porcelain); echo $STATUS; if [ -z \"$STATUS\" ]; then npm version && git push --follow-tags; else echo \"Uncomitted changes found.\" && exit 1; fi",
+        "postship": "git fetch && gulp release",
+        "build": "gulp build",
+        "pretest:ci": "gulp build"
     },
-    "packageManager": "pnpm@11.25.0",
     "author": {
         "name": "Ghost Foundation",
         "email": "hello@ghost.org",
@@ -46,19 +45,18 @@
     "contributors": "https://github.com/TryGhost/Source/graphs/contributors",
     "devDependencies": {
         "@tryghost/release-utils": "0.9.1",
-        "@tryghost/theme-translations": "0.0.22",
-        "autoprefixer": "10.5.4",
-        "beeper": "2.1.0",
-        "cssnano": "9.0.1",
-        "gscan": "6.4.2",
+        "autoprefixer": "10.6.0",
+        "beeper": "3.0.0",
+        "cssnano": "9.0.4",
+        "gscan": "6.6.1",
         "gulp": "5.0.1",
         "gulp-concat": "2.6.1",
         "gulp-livereload": "4.0.2",
         "gulp-postcss": "10.0.0",
         "gulp-uglify": "3.0.2",
         "gulp-zip": "6.1.0",
-        "inquirer": "14.2.0",
-        "postcss": "8.5.26",
+        "inquirer": "14.2.2",
+        "postcss": "8.5.28",
         "postcss-easy-import": "4.0.0",
         "pump": "3.0.4"
     },
@@ -213,5 +211,11 @@
                 "group": "post"
             }
         }
-    }
+    },
+    "renovate": {
+        "extends": [
+            "@tryghost:theme"
+        ]
+    },
+    "packageManager": "npm@11.12.1"
 }
