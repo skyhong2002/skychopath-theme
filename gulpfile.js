@@ -76,6 +76,8 @@ function zipper(done) {
             '!package-lock.json',
             '!gulpfile.js',
             '!README.md',
+            '!AGENTS.md',
+            '!.git', '!.git/**',
             '!renovate.json',
             '!routes.yaml'
         ]),

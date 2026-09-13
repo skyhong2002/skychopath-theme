@@ -1,25 +1,9 @@
-# AGENTS.md
+# Skychopath theme
 
-## Scope
-
-This repository is the default Ghost theme. Keep changes focused on theme source, generated assets, CI, and repo-level metadata for this repository.
-
-## Commands
-
-Use pnpm for this repo.
-
-```bash
-pnpm install --frozen-lockfile
-pnpm dev
-pnpm test:ci
-pnpm zip
-```
-
-Run the test command before opening a PR when theme files, generated assets, dependencies, or CI change.
-
-## Boundaries
-
-- Edit source CSS, JavaScript, Handlebars templates, partials, and package metadata intentionally.
-- Keep generated assets/built/ files in sync when source assets change and the repo tracks those outputs.
-- Do not commit node_modules/, local Ghost content, generated zip files outside tracked release expectations, or secrets.
-- Repo settings, descriptions, and branch rules belong on the GitHub repository; internal clean-repos metadata stays in TryGhost/cleanrepos.
+- Read README.md. This repository is directly mounted into the production Ghost container; modifications can affect the live site immediately.
+- Prefer `partials/skychopath/` and `assets/custom/` for personal changes. Keep upstream template changes limited to required integration points.
+- Homepage text belongs to the published Ghost Page with slug `home`, not a second hardcoded template copy. Preserve Ghost helpers and existing custom setting keys.
+- Keep package name `skychopath-theme`, personal author metadata, npm and package-lock.json. Do not hand-edit `assets/built/`; build it with npm.
+- Upstream Source history is native Git ancestry. Fetch and merge selected upstream releases; no subtree, copy deployment or official ZIP replacement is needed. Resolve conflicts before reloading Ghost.
+- Run `npm test` for theme code changes. Restart only this project's Ghost when templates need reloading, then check affected public pages. Do not create or push a personal remote without user authorization; source-upstream is fetch-only.
+- Never commit secrets, database exports, runtime content, node_modules or backups. Do not alter unrelated services.
