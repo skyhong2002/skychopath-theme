@@ -2,7 +2,9 @@
 
 這裡就是 skyhong.tw 使用的主題，也是獨立 Git repo。Ghost 直接將此資料夾掛載為 `/var/lib/ghost/content/themes/skychopath-theme`，沒有第二份日常部署副本。
 
-目前以官方 Source **v1.7.4** 為基底，個人版本 **1.7.4-skychopath.1**。官方歷史與個人修改的提交均保留。Git 目前只在這台伺服器，尚未設定自己的 `origin`；`source-upstream` 僅供取得官方更新，已停用推送。
+目前以官方 Source **v1.7.4** 為基底，個人版本 **1.7.4-skychopath.1**。官方歷史與個人修改的提交均保留。個人 GitHub repo 是 [skyhong2002/skychopath-theme](https://github.com/skyhong2002/skychopath-theme)，已設定為 `origin`，本機 `main` 追蹤 `origin/main`；`source-upstream` 僅供取得官方更新，已停用推送。
+
+GitHub 原有的 2025 年個人修改歷史已合併至目前版本；整合保留本機 Source 1.7.4 與 Ghost Page 首頁架構。提交後以 `git push origin main` 同步至 GitHub（伺服器需具備推送認證）。從 GitHub 取得更新時先執行 `git fetch origin` 並檢查差異；合併會直接影響線上主題，仍須遵循下方建置與重載步驟。
 
 ## 平常改哪裡
 
