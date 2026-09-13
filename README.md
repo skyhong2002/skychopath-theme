@@ -15,7 +15,7 @@ GitHub 原有的 2025 年個人修改歷史已合併至目前版本；整合保�
 | 配色、Logo、導覽 | Ghost 後台品牌／主題設定 |
 | Google Analytics | Ghost 後台 Code Injection |
 | 個人 CSS／JavaScript | `assets/custom/skyhong.css`、`assets/custom/skyhong.js` |
-| 首頁排版與側欄 | `partials/skychopath/home.hbs` |
+| 首頁排版（單欄，無側欄） | `partials/skychopath/home.hbs` |
 | 頁尾連結 | `partials/skychopath/footer-links.hbs` |
 | 頁尾社群圖示 | `partials/skychopath/social-links.hbs`（不顯示 X／Facebook；後台帳號資料保留） |
 | 網址路由／轉址 | Ghost 後台上傳；實際檔案位於主題 repo 外的 `../ghost-docker/content/settings/routes.yaml` 與 `../ghost-docker/content/data/redirects.json` |
