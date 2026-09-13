@@ -44,6 +44,7 @@
     </script>
 
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings, it should always be the last tag before the closing head tag --}}
+    {{> "skychopath/head"}}
     {{ghost_head}}
 
 </head>
@@ -67,6 +68,7 @@
 <script src="{{asset "built/source.js"}}"></script>
 
 {{!-- Ghost outputs required functional scripts with this tag, it should always be the last thing before the closing body tag --}}
+{{> "skychopath/scripts"}}
 {{ghost_foot}}
 
 </body>

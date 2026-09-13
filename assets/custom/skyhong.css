@@ -1,0 +1,55 @@
+/* Personal styles. Loaded after Source; never edit assets/built by hand. */
+.gh-head-logo img {
+    max-height: 80px;
+    height: 100%;
+}
+
+.skychopath-home {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.skychopath-home-title {
+    margin-top: 50px;
+}
+
+/* Ghost adds heading IDs to editor content; keep the original homepage rhythm. */
+.gh-content.skychopath-home > [id]:not(:first-child),
+.gh-content.skychopath-home > [id] + p {
+    margin-top: calc(28px * var(--content-spacing-factor, 1));
+}
+
+.skychopath-home-banner {
+    background: linear-gradient(135deg, var(--ghost-accent-color), #8a2be2);
+    color: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    margin: 20px 0 30px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.15em;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.skychopath-home-banner-icon {
+    font-size: 1.4em;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.skychopath-home-banner a {
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.skychopath-home-cover img {
+    width: 80%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
