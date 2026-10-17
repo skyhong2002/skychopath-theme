@@ -57,3 +57,9 @@
     display: block;
     margin: 0 auto;
 }
+
+/* Keep keyboard focus visible on Source's search and mobile menu controls. */
+.gh-icon-button:focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 4px;
+}
