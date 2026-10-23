@@ -59,6 +59,10 @@ git merge vX.Y.Z
 
 由於這份工作目錄就是線上檔案，大幅升級若需要先測試，可另外使用暫時的 worktree／測試 Ghost；日常不需要維護第二份主題。
 
+## SEO 紀錄
+
+Search Console 相關檢查、正式站證據與 Sitemap 清單記錄在 [docs/seo/](docs/seo/)。
+
 ## 備份與還原
 
 已提交的修改可用 `git revert <commit>` 還原，再建置與重啟 Ghost。Git 只保存主題，文章、圖片、後台設定和資料庫仍需要另外備份。
